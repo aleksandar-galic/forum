@@ -35,10 +35,10 @@
                         @csrf
 
                         <textarea name="body" id="body" placeholder="Have something to say?" rows="5"></textarea>
-                        <button type="submit" class="">Post</button>
+                        <button type="submit">Post</button>
                     </form>
                 @else
-                    <p>Please <a href="{{ route('login') }}">sign in</a> to participate in this discussion.</p>
+                    <p>Please <a href="{{ route('login') }}" class="underline">sign in</a> to participate in this discussion.</p>
                 @endif
             </div>
         </div>

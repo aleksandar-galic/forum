@@ -2,21 +2,20 @@
 
 namespace Tests\Feature;
 
-use App\Models\Reply;
-use App\Models\Thread;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use App\Models\User;
+use App\Models\Thread;
+use App\Models\Reply;
 use Tests\TestCase;
 
 class ParticipateInForumTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     /** @test */
     public function unauthenticated_users_may_not_add_replies()
     {
+        $this->withoutExceptionHandling();
+
         $this->expectException('Illuminate\Auth\AuthenticationException');
 
         $this->post('threads/1/replies', []);
@@ -25,11 +24,11 @@ class ParticipateInForumTest extends TestCase
     /** @test */
     public function an_authenticated_user_may_participate_in_forum_threads()
     {
-        $this->be($user = User::factory()->create());
+        $this->signIn();
 
-        $thread = Thread::factory()->create();
+        $thread = create(Thread::class);
 
-        $reply = Reply::factory()->make();
+        $reply = make(Reply::class);
         $this->post($thread->path() . '/replies', $reply->toArray());
 
         $this->get($thread->path())

@@ -2,8 +2,8 @@
 
 namespace Tests\Unit;
 
-use App\Models\Thread;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Models\Thread;
 use Tests\TestCase;
 
 class ThreadTest extends TestCase
@@ -16,7 +16,7 @@ class ThreadTest extends TestCase
     {
         parent::setUp();
 
-        $this->thread = Thread::factory()->create();
+        $this->thread = create(Thread::class);
     }
 
     /** @test */
